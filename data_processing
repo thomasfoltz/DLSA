@@ -1,17 +1,16 @@
+
 #importing all necessary packages
 import pandas as pd
-import requests
+import yfinance as yf
+import os
 
-#downloading all NASDAQ traded symbols
-data = pd.read_csv("http://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt", sep='|')
+#pulling all NASDAQ traded symbols from url
+df = pd.read_csv("http://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt", sep='|')
 csv_file = open('NASDAQ_data.csv', 'wb')
-data_clean = data[data['Test Issue'] == 'N']
+data_clean = df[df['Test Issue'] == 'N']
 symbols = data_clean['NASDAQ Symbol'].tolist()
 print('total number of symbols traded = {}'.format(len(symbols)))
 
-#saving the data to a csv file
-req = requests.get("http://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt")
-url_content = req.content
-csv_file = open('NASDAQ_data.csv', 'wb')
-csv_file.write(url_content)
-csv_file.close()
+#saving data to local csv file
+df.to_csv('NASDAQ_data.csv', index=False)
+
