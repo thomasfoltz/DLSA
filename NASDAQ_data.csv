@@ -283,10 +283,10 @@ Y,AG,First Majestic Silver Corp. Ordinary Shares (Canada),N, ,N,100.0,N,,AG,AG,N
 Y,AGAC,African Gold Acquisition Corporation Class A Ordinary Shares,N, ,N,100.0,N,,AGAC,AGAC,N
 Y,AGAC.U,"African Gold Acquisition Corporation Units, each consisting of one Class A ordinary share and three-quarters of one redeemable warrant",N, ,N,100.0,N,,AGAC.U,AGAC=,N
 Y,AGAC.W,"African Gold Acquisition Corporation Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",N, ,N,100.0,N,,AGAC.WS,AGAC+,N
-Y,AGBA,AGBA Acquisition Limited - Ordinary Share,Q,S,N,100.0,N,N,,AGBA,N
-Y,AGBAR,AGBA Acquisition Limited - Right,Q,S,N,100.0,N,N,,AGBAR,N
-Y,AGBAU,AGBA Acquisition Limited - Unit,Q,S,N,100.0,N,N,,AGBAU,N
-Y,AGBAW,AGBA Acquisition Limited - Warrant,Q,S,N,100.0,N,N,,AGBAW,N
+Y,AGBA,AGBA Acquisition Limited - Ordinary Share,Q,S,N,100.0,N,D,,AGBA,N
+Y,AGBAR,AGBA Acquisition Limited - Right,Q,S,N,100.0,N,D,,AGBAR,N
+Y,AGBAU,AGBA Acquisition Limited - Unit,Q,S,N,100.0,N,D,,AGBAU,N
+Y,AGBAW,AGBA Acquisition Limited - Warrant,Q,S,N,100.0,N,D,,AGBAW,N
 Y,AGCB,Altimeter Growth Corp. 2 Class A Ordinary Shares,N, ,N,100.0,N,,AGCB,AGCB,N
 Y,AGCO,AGCO Corporation Common Stock,N, ,N,100.0,N,,AGCO,AGCO,N
 Y,AGD,Aberdeen Global Dynamic Dividend Fund,N, ,N,100.0,N,,AGD,AGD,N
@@ -431,9 +431,9 @@ Y,ALDX,"Aldeyra Therapeutics, Inc. - Common Stock",Q,S,N,100.0,N,N,,ALDX,N
 Y,ALE,"Allete, Inc.",N, ,N,100.0,N,,ALE,ALE,N
 Y,ALEC,"Alector, Inc. - Common Stock",Q,Q,N,100.0,N,N,,ALEC,N
 Y,ALEX,"Alexander & Baldwin, Inc. Common Stock REIT Holding Company",N, ,N,100.0,N,,ALEX,ALEX,N
-Y,ALF,"ALFI, Inc. - Common Stock",Q,S,N,100.0,N,E,,ALF,N
+Y,ALF,"ALFI, Inc. - Common Stock",Q,S,N,100.0,N,N,,ALF,N
 Y,ALFA,AlphaClone Alternative Alpha ETF,Z, ,Y,100.0,N,,ALFA,ALFA,N
-Y,ALFIW,"ALFI, Inc. - Warrant",Q,S,N,100.0,N,E,,ALFIW,N
+Y,ALFIW,"ALFI, Inc. - Warrant",Q,S,N,100.0,N,N,,ALFIW,N
 Y,ALG,"Alamo Group, Inc. Common Stock",N, ,N,100.0,N,,ALG,ALG,N
 Y,ALGM,"Allegro MicroSystems, Inc. - Common Stock",Q,Q,N,100.0,N,N,,ALGM,N
 Y,ALGN,"Align Technology, Inc. - Common Stock",Q,Q,N,100.0,N,N,,ALGN,N
@@ -945,8 +945,8 @@ Y,AUTL,Autolus Therapeutics plc - American Depositary Shares,Q,Q,N,100.0,N,N,,AU
 Y,AUTO,"AutoWeb, Inc. - Common Stock",Q,S,N,100.0,N,N,,AUTO,N
 Y,AUUD,Auddia Inc. - Common Stock,Q,S,N,100.0,N,N,,AUUD,N
 Y,AUUDW,Auddia Inc. - Warrants,Q,S,N,100.0,N,N,,AUUDW,N
-Y,AUVI,"Applied UV, Inc. - Common Stock",Q,S,N,100.0,N,D,,AUVI,N
-Y,AUVIP,"Applied UV, Inc. - 10.5% Series A Cumulative Perpetual Preferred Stock, $0.0001 par value per share",Q,S,N,100.0,N,D,,AUVIP,N
+Y,AUVI,"Applied UV, Inc. - Common Stock",Q,S,N,100.0,N,N,,AUVI,N
+Y,AUVIP,"Applied UV, Inc. - 10.5% Series A Cumulative Perpetual Preferred Stock, $0.0001 par value per share",Q,S,N,100.0,N,N,,AUVIP,N
 Y,AUY,Yamana Gold Inc. Ordinary Shares (Canada),N, ,N,100.0,N,,AUY,AUY,N
 Y,AVA,Avista Corporation Common Stock,N, ,N,100.0,N,,AVA,AVA,N
 Y,AVAC,Avalon Acquisition Inc. - Class A Common Stock,Q,G,N,100.0,N,N,,AVAC,N
@@ -1600,8 +1600,8 @@ Y,BRMK,Broadmark Realty Capital Inc. Common Stock,N, ,N,100.0,N,,BRMK,BRMK,N
 Y,BRMK.W,"Broadmark Realty Capital Inc. Warrants, each exercisable for one fourth (1/4th) share of Common Stock at an exercise price of $2.875 per quarter share",A, ,N,100.0,N,,BRMK.WS,BRMK+,N
 Y,BRN,"Barnwell Industries, Inc. Common Stock",A, ,N,100.0,N,,BRN,BRN,N
 Y,BRO,"Brown & Brown, Inc. Common Stock",N, ,N,100.0,N,,BRO,BRO,N
-Y,BROG,Brooge Energy Limited  - Ordinary Shares,Q,S,N,100.0,N,H,,BROG,N
-Y,BROGW,Brooge Energy Limited  - Warrant,Q,S,N,100.0,N,H,,BROGW,N
+Y,BROG,Brooge Energy Limited  - Ordinary Shares,Q,S,N,100.0,N,D,,BROG,N
+Y,BROGW,Brooge Energy Limited  - Warrant,Q,S,N,100.0,N,D,,BROGW,N
 Y,BROS,Dutch Bros Inc. Class A Common Stock,N, ,N,100.0,N,,BROS,BROS,N
 Y,BRP,"BRP Group, Inc. - Class A Common Stock",Q,Q,N,100.0,N,N,,BRP,N
 Y,BRPM,B. Riley Principal 150 Merger Corp. - Class A Common Stock,Q,S,N,100.0,N,N,,BRPM,N
@@ -12186,4 +12186,4 @@ Y,ZY,Zymergen Inc. - Common Stock,Q,Q,N,100.0,N,N,,ZY,N
 Y,ZYME,Zymeworks Inc. Common Shares,N, ,N,100.0,N,,ZYME,ZYME,N
 Y,ZYNE,"Zynerba Pharmaceuticals, Inc. - Common Stock",Q,G,N,100.0,N,N,,ZYNE,N
 Y,ZYXI,"Zynex, Inc. - Common Stock",Q,Q,N,100.0,N,N,,ZYXI,N
-File Creation Time: 0523202217:02,,,,,,,,,,,
+File Creation Time: 0523202221:32,,,,,,,,,,,
