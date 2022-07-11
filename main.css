@@ -1,0 +1,54 @@
+:root {
+    --blue: #78CFFF;
+    --orange: #FFAB5D;
+    --white: #FFFFFF;
+    --grey: #2E2E2E;
+  }
+  
+  .light-theme {
+    --bg: var(--white);
+    --fontColor: var(--grey);
+    --btnBg: var(--grey);
+    --btnFontColor: var(--white);
+  }
+  .dark-theme {
+    --bg: var(--grey);
+    --fontColor: var(--white);
+    --btnBg: var(--white);
+    --btnFontColor: var(--grey);
+  }
+  
+  head {
+    position: center
+  }
+  body {
+    background: var(--bg);
+    color: var(--fontColor);
+    font-family: Arial;
+  }
+  
+  ul {
+    font-family: monospace;
+  }
+  
+  li {
+    list-style: square;
+  }
+  
+  .list {
+    list-style: square;
+  }
+  
+  #msg {
+    font-family: monospace;
+  }
+  
+  .btn {
+    position: center;
+    height: 20px;
+    width: 180px;
+    border: none;
+    color: var(--btnFontColor);
+    background-color: var(--btnBg);
+  }
+  
