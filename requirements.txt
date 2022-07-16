@@ -1,5 +1,7 @@
+datetime
 numpy
 matplotlib
 pandas
 torch
 scipy
+yfinance
