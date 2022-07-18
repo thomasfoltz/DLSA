@@ -1,0 +1,29 @@
+{
+    "holdings": [
+        {
+            "name": "AAPL",
+            "quantity": 1,
+            "datePurchased": "2022-07-17"
+        },
+        {
+            "name": "AMZN",
+            "quantity": 1,
+            "datePurchased": "2022-07-17"
+        },
+        {
+            "name": "GOOGL",
+            "quantity": 1,
+            "datePurchased": "2022-07-17"
+        },
+        {
+            "name": "GS",
+            "quantity": 1,
+            "datePurchased": "2022-07-17"
+        },
+        {
+            "name": "MSFT",
+            "quantity": 1,
+            "datePurchased": "2022-07-17"
+        }
+    ]
+}
