@@ -2,6 +2,7 @@ import argparse
 import csv
 from datetime import date
 import json
+import matplotlib.pyplot as plt
 import os
 import yfinance as yf
 
@@ -51,7 +52,7 @@ def addStock(stock:str, quantity:int):
     json.dump(jdata, jsonFile, indent=4)
     jsonFile.close()
 
-def delStock(stock:str):
+def deleteStock(stock:str):
     jsonFile = open("stocks.json", mode="r")
     jdata, index = json.load(jsonFile), 0
     jsonFile.close()
@@ -73,6 +74,23 @@ def extractTickerData(stock:str):
     file.close()
     return header, data
 
+def extractColumnData(data:list, header:str):
+    headers = {'Date':0, 'Open':1, 'High':2, 'Low':3, 'Close':4, 'Adj Close':5, 'Volume':6}
+    index = headers.get(header)
+    columnData = []
+    for row in data:
+        columnData.append(row[index])
+    if index!=0:
+        columnData = [float(item) for item in columnData]
+    return columnData
+
+def splitDataset(data:list, testRatio=0.2):
+    trainingRatio = 1 - testRatio
+    trainSize = int(trainingRatio * len(data))
+    #testSize = int(testRatio * len(data))
+    train, test = data[:trainSize], data[trainSize:]
+    return train, test
+
 def printHoldingsData():
     with open('stocks.json','r+') as file:
         file = json.load(file)
@@ -80,22 +98,34 @@ def printHoldingsData():
             print('\n', item['name'])
             print(extractTickerData(item['name']))
 
-parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
-parser.add_argument('-a', '--add', help='stock symbol to add', type=str)
-parser.add_argument('-d', '--delete', help='stock symbol to delete', type=str)
-parser.add_argument('-q', '--quantity', help='quantity of stocks to add/remove', type=int, default=1)
-parser.add_argument('-u', '--update', help='update all of the stocks', type=bool, default=False)
-args = parser.parse_args()
+def plotData(x:list,y:list):
+    ax = plt.axes()
+    ax.scatter(x, y)
+    ax.set_title('Closing Stock Prices')
+    ax.set_xlabel('Days')
+    ax.set_ylabel('Close Price')
+    plt.show()
+    plt.close()
 
-today = date.today()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
+    parser.add_argument('-a', '--add', help='stock symbol to add', type=str)
+    parser.add_argument('-d', '--delete', help='stock symbol to delete', type=str)
+    parser.add_argument('-q', '--quantity', help='quantity of stocks to add/remove', type=int, default=1)
+    parser.add_argument('-u', '--update', help='update all of the stocks', type=bool, default=False)
+    args = parser.parse_args()
+    today = date.today()
 
-if args.add:
-    addStock(args.add, args.quantity)
-if args.delete:
-    delStock(args.delete)
-if args.update:
-    print('Select start date for ticker history')
-    year,month,day = int(input("Year: ")), int(input("Month: ")), int(input("Day: "))
-    currDate = formatDate(today.year, today.month, today.day)
-    startDate = formatDate(year,month,day)
-    updateTickers(startDate)
+    if args.add:
+        addStock(args.add, args.quantity)
+    if args.delete:
+        deleteStock(args.delete)
+    if args.update:
+        print('Select start date for ticker history')
+        year,month,day = int(input("Year: ")), int(input("Month: ")), int(input("Day: "))
+        currDate = formatDate(today.year, today.month, today.day)
+        startDate = formatDate(year,month,day)
+        updateTickers(startDate)
+
+    # header, data = extractTickerData('AAPL')
+    # plotData(extractColumnData(data, 'Date'),extractColumnData(data, 'Close'))
