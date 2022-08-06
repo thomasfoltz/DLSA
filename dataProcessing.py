@@ -1,9 +1,8 @@
 import argparse
+import csv
 from datetime import date
-from os import path
 import json
 import os
-import pandas as pd
 import yfinance as yf
 
 def formatDate(year, month, day):
@@ -26,11 +25,11 @@ def legitDate(date):
         return False
     return True
 
-def pullTickerData(ticker, startDate, currDate):
+def pullTickerData(ticker:str, startDate:str, currDate:str):
     tickerData = yf.download(ticker, startDate, currDate)
     tickerData.to_csv(os.path.join('./', r'tickerData/' + ticker + '.csv'))
 
-def updateTickers(startDate):
+def updateTickers(startDate:str):
     with open('stocks.json','r+') as file:
         tickers = []
         file_data = json.load(file)
@@ -42,7 +41,7 @@ def updateTickers(startDate):
     else:
         print('Invalid start date')
 
-def addStock(stock, quantity):
+def addStock(stock:str, quantity:int):
     stockInfo = {"name": stock,"quantity": quantity,"datePurchased": formatDate(today.year, today.month, today.day)}
     jsonFile = open("stocks.json", mode="r")
     jdata = json.load(jsonFile)
@@ -52,7 +51,7 @@ def addStock(stock, quantity):
     json.dump(jdata, jsonFile, indent=4)
     jsonFile.close()
 
-def delStock(stock):
+def delStock(stock:str):
     jsonFile = open("stocks.json", mode="r")
     jdata, index = json.load(jsonFile), 0
     jsonFile.close()
@@ -63,6 +62,23 @@ def delStock(stock):
     jsonFile = open('stocks.json', mode='w+')
     json.dump(jdata, jsonFile, indent=4)
     jsonFile.close()
+
+def extractTickerData(stock:str):
+    header, data = [], []
+    file = open('tickerData/' + stock + '.csv')
+    reader = csv.reader(file)
+    header = next(reader)
+    for row in reader:
+        data.append(row)
+    file.close()
+    return header, data
+
+def printHoldingsData():
+    with open('stocks.json','r+') as file:
+        file = json.load(file)
+        for item in file['holdings']:
+            print('\n', item['name'])
+            print(extractTickerData(item['name']))
 
 parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
 parser.add_argument('-a', '--add', help='stock symbol to add', type=str)
