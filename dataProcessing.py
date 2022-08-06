@@ -4,6 +4,7 @@ from datetime import date
 import json
 import matplotlib.pyplot as plt
 import os
+from scipy import stats
 import yfinance as yf
 
 def formatDate(year, month, day):
@@ -80,7 +81,9 @@ def extractColumnData(data:list, header:str):
     columnData = []
     for row in data:
         columnData.append(row[index])
-    if index!=0:
+    if index==0: 
+        columnData = [item for item in range(0, len(columnData))]
+    else: 
         columnData = [float(item) for item in columnData]
     return columnData
 
@@ -99,13 +102,15 @@ def printHoldingsData():
             print(extractTickerData(item['name']))
 
 def plotData(x:list,y:list):
+    def line(x):
+        return slope * x + intercept
+    slope, intercept, r, p, standardError = stats.linregress(x, y)
+    prediction = list(map(line, x))
     ax = plt.axes()
     ax.scatter(x, y)
-    ax.set_title('Closing Stock Prices')
-    ax.set_xlabel('Days')
-    ax.set_ylabel('Close Price')
-    plt.show()
-    plt.close()
+    ax.set_title('Closing Stock Price')
+    ax.set_xlabel('Days (since start)') and ax.set_ylabel('Price ($)')
+    plt.plot(x, prediction) and plt.show() and plt.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
@@ -127,5 +132,7 @@ if __name__ == "__main__":
         startDate = formatDate(year,month,day)
         updateTickers(startDate)
 
-    # header, data = extractTickerData('AAPL')
-    # plotData(extractColumnData(data, 'Date'),extractColumnData(data, 'Close'))
+    header, data = extractTickerData('AAPL')
+    plotData(extractColumnData(data, 'Date'),extractColumnData(data, 'Close'))
+
+
