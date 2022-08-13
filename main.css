@@ -44,7 +44,9 @@
   }
   
   .btn {
-    position: center;
+    position:absolute;
+    top:0;
+    right:0;
     height: 20px;
     width: 180px;
     border: none;
