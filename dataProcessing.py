@@ -3,8 +3,8 @@ import csv
 from datetime import date
 import json
 import matplotlib.pyplot as plt
+import numpy as np
 import os
-from scipy import stats
 import yfinance as yf
 
 def formatDate(year, month, day):
@@ -102,15 +102,15 @@ def printHoldingsData():
             print(extractTickerData(item['name']))
 
 def plotData(x:list,y:list):
-    def line(x):
-        return slope * x + intercept
-    slope, intercept, r, p, standardError = stats.linregress(x, y)
-    prediction = list(map(line, x))
+    polynomial = np.poly1d(np.polyfit(x, y, 10))
+    linSpace = np.linspace(min(x), max(x))
     ax = plt.axes()
     ax.scatter(x, y)
     ax.set_title('Closing Stock Price')
     ax.set_xlabel('Days (since start)') and ax.set_ylabel('Price ($)')
-    plt.plot(x, prediction) and plt.show() and plt.close()
+    plt.plot(linSpace, polynomial(linSpace))
+    plt.savefig('output.png')
+    plt.show() and plt.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         startDate = formatDate(year,month,day)
         updateTickers(startDate)
 
-    header, data = extractTickerData('AAPL')
+    header, data = extractTickerData('GOOGL')
     plotData(extractColumnData(data, 'Date'),extractColumnData(data, 'Close'))
 
 
