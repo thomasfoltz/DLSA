@@ -4,7 +4,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
       <title>DL Stock Price Predictor</title>
-      <link rel="stylesheet" href="main.css">
+      <link rel= "stylesheet" type= "text/css" href= "{{url_for('static',filename='../static/main.css')}}">
     </head>
 
     <body>
@@ -23,12 +23,10 @@
             <li class="list">Reformat homepage structure</li>
             <li class="list">Develop predictor tool</li>
         </ul>
-
-        <p id="msg">(work in progress)</p>
-
-        <img src='output.png'/>
         
-        <script src="app.js"></script>
+        <p id="msg">(work in progress)</p>
+        <img src='static/output.png'/>
+        <script src="{{ url_for('static',filename='../static/app.js') }}"></script>
         <noscript>You need to enable JavaScript to view the full site.</noscript>
     </body>
 
