@@ -26,6 +26,13 @@
         
         <p id="msg">(work in progress)</p>
         <img src='static/output.png'/>
+
+        <h2>Upload your CSV file</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <p id="msg"><input type="file" name="file"></p>
+            <p id="msg"><input type="submit" value="Submit"></p>
+        </form>
+
         <script src="{{ url_for('static',filename='../static/app.js') }}"></script>
         <noscript>You need to enable JavaScript to view the full site.</noscript>
     </body>

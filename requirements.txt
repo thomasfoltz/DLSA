@@ -5,3 +5,5 @@ pandas
 torch
 scipy
 yfinance
+flask
+sql

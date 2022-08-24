@@ -29,7 +29,7 @@ def legitDate(date):
 
 def pullTickerData(ticker:str, startDate:str, currDate:str):
     tickerData = yf.download(ticker, startDate, currDate)
-    tickerData.to_csv(os.path.join('./', r'tickerData/' + ticker + '.csv'))
+    tickerData.to_csv(os.path.join('./', r'static/tickerData/' + ticker + '.csv'))
 
 def updateTickers(startDate:str):
     with open('stocks.json','r+') as file:
@@ -67,7 +67,7 @@ def deleteStock(stock:str):
 
 def extractTickerData(stock:str):
     header, data = [], []
-    file = open('tickerData/' + stock + '.csv')
+    file = open('static/tickerData/' + stock + '.csv')
     reader = csv.reader(file)
     header = next(reader)
     for row in reader:
