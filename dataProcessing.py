@@ -40,6 +40,7 @@ def updateTickers(startDate:str):
             tickers.append(item['name'])
     if legitDate(startDate):
         for ticker in tickers:
+            
             pullTickerData(ticker, startDate, currDate)
     else:
         print('Invalid start date')
@@ -102,18 +103,27 @@ def printHoldingsData():
             print('\n', item['name'])
             print(extractTickerData(item['name']))
 
-def plotData(x:list,y:list,pred):
+def plotData(x:list,y:list,pred,ticker:str,indep:str='Date',dep:str='Close'):
+    headers = {'Date':'Days (since start of history)', 'Open': 'Open Price ($)', 
+    'High':'Highest Price ($)', 'Low':'Lowest Price ($)', 'Close':'Close Price ($)', 
+    'Adj Close':'Adjusted Close Price ($)', 'Volume':'Volume of Trades'}
     linSpace = np.linspace(min(x), max(x))
     ax = plt.axes()
     ax.scatter(x, y)
-    ax.set_title('Closing Stock Price') #modify this so that it is customizable
-    ax.set_xlabel('Days (since start)') and ax.set_ylabel('Price ($)')
+    ax.set_title('Comparison of ' + ticker + ' ' + indep + ' vs ' + dep)
+    ax.set_xlabel(headers[indep]) and ax.set_ylabel(headers[dep])
     plt.plot(linSpace, pred(linSpace))
-    plt.savefig('output.png')
+    plt.savefig(ticker + '_' + indep + '_vs_' + dep + '.png')
     plt.show() and plt.close()
 
 def polynomial(x:list,y:list,degree:int):
     return x, y, np.poly1d(np.polyfit(x, y, degree))
+
+def generatePrediction(ticker:str, indep:str='Date', dep:str='Close'):
+    header, data = extractTickerData(ticker)
+    for degree in range(1,20):
+        x, y, pred = polynomial(extractColumnData(data, indep), extractColumnData(data, dep), degree)
+    plotData(x, y, pred, ticker, indep, dep)
 
 #write function to calculate error using RMSE, etc....
 
@@ -121,8 +131,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
     parser.add_argument('-a', '--add', help='stock symbol to add', type=str)
     parser.add_argument('-d', '--delete', help='stock symbol to delete', type=str)
+    parser.add_argument('-p', '--prediction', help='compares varibles to create a best-fit polynomial', type=bool)
     parser.add_argument('-q', '--quantity', help='quantity of stocks to add/remove', type=int, default=1)
-    parser.add_argument('-u', '--update', help='update all of the stocks', type=bool, default=False)
+    parser.add_argument('-u', '--update', help='update all of the stocks', type=bool)
     args = parser.parse_args()
     today = date.today()
 
@@ -130,18 +141,15 @@ if __name__ == "__main__":
         addStock(args.add, args.quantity)
     if args.delete:
         deleteStock(args.delete)
+    if args.prediction:
+        print('Select a ticker, along with the independent/dependent variables to be compared')
+        ticker,indep,dep= input("Ticker: "), input("Independent (default -> Date): "), input("Dependent (default -> Close): ")
+        generatePrediction(ticker, indep, dep)
     if args.update:
         print('Select start date for ticker history')
         year,month,day = int(input("Year: ")), int(input("Month: ")), int(input("Day: "))
         currDate = formatDate(today.year, today.month, today.day)
         startDate = formatDate(year,month,day)
         updateTickers(startDate)
-
-    def generatePrediction(ticker:str, indep:str, dep:str):
-        header, data = extractTickerData(ticker)
-        for degree in range(1,20):
-            x, y, pred = polynomial(extractColumnData(data, indep), extractColumnData(data, dep), degree)
-        
-        #plotData(x, y, pred)
 
 
