@@ -5,6 +5,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from random import shuffle
 import yfinance as yf
 
 def formatDate(year, month, day):
@@ -90,7 +91,7 @@ def extractColumnData(data:list, header:str):
 def splitDataset(data:list, testRatio=0.2):
     trainingRatio = 1 - testRatio
     trainSize = int(trainingRatio * len(data))
-    #testSize = int(testRatio * len(data))
+    shuffle(data)
     train, test = data[:trainSize], data[trainSize:]
     return train, test
 
@@ -101,16 +102,20 @@ def printHoldingsData():
             print('\n', item['name'])
             print(extractTickerData(item['name']))
 
-def plotData(x:list,y:list):
-    polynomial = np.poly1d(np.polyfit(x, y, 10))
+def plotData(x:list,y:list,pred):
     linSpace = np.linspace(min(x), max(x))
     ax = plt.axes()
     ax.scatter(x, y)
-    ax.set_title('Closing Stock Price')
+    ax.set_title('Closing Stock Price') #modify this so that it is customizable
     ax.set_xlabel('Days (since start)') and ax.set_ylabel('Price ($)')
-    plt.plot(linSpace, polynomial(linSpace))
+    plt.plot(linSpace, pred(linSpace))
     plt.savefig('output.png')
     plt.show() and plt.close()
+
+def polynomial(x:list,y:list,degree:int):
+    return x, y, np.poly1d(np.polyfit(x, y, degree))
+
+#write function to calculate error using RMSE, etc....
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
@@ -132,7 +137,11 @@ if __name__ == "__main__":
         startDate = formatDate(year,month,day)
         updateTickers(startDate)
 
-    header, data = extractTickerData('GOOGL')
-    plotData(extractColumnData(data, 'Date'),extractColumnData(data, 'Close'))
+    def generatePrediction(ticker:str, indep:str, dep:str):
+        header, data = extractTickerData(ticker)
+        for degree in range(1,20):
+            x, y, pred = polynomial(extractColumnData(data, indep), extractColumnData(data, dep), degree)
+        
+        #plotData(x, y, pred)
 
 
