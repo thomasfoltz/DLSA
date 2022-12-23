@@ -96,7 +96,7 @@ def splitDataset(data:list, testRatio=0.2):
     train, test = data[:trainSize], data[trainSize:]
     return train, test
 
-def printHoldingsData():
+def printHoldingsData():    #not being used
     with open('stocks.json','r+') as file:
         file = json.load(file)
         for item in file['holdings']:
@@ -104,24 +104,24 @@ def printHoldingsData():
             print(extractTickerData(item['name']))
 
 def plotData(x:list,y:list,pred,ticker:str,indep:str='Date',dep:str='Close'):
-    headers = {'Date':'Days (since start of history)', 'Open': 'Open Price ($)', 
+    headers = {'Date':'Days (since earliest tracked date)', 'Open': 'Open Price ($)', 
     'High':'Highest Price ($)', 'Low':'Lowest Price ($)', 'Close':'Close Price ($)', 
     'Adj Close':'Adjusted Close Price ($)', 'Volume':'Volume of Trades'}
     linSpace = np.linspace(min(x), max(x))
     ax = plt.axes()
     ax.scatter(x, y)
-    ax.set_title('Comparison of ' + ticker + ' ' + indep + ' vs ' + dep)
+    ax.set_title('Comparison of ' + ticker + ': ' + indep + ' vs ' + dep)
     ax.set_xlabel(headers[indep]) and ax.set_ylabel(headers[dep])
     plt.plot(linSpace, pred(linSpace))
-    plt.savefig(ticker + '_' + indep + '_vs_' + dep + '.png')
-    plt.show() and plt.close()
+    plt.savefig('static/plotFigures/' + ticker + '_' + indep + '_vs_' + dep + '.png')
+    #plt.show() and plt.close()
 
 def polynomial(x:list,y:list,degree:int):
     return x, y, np.poly1d(np.polyfit(x, y, degree))
 
-def generatePrediction(ticker:str, indep:str='Date', dep:str='Close'):
+def generatePrediction(ticker:str, indep:str='Date', dep:str='Open'):
     header, data = extractTickerData(ticker)
-    for degree in range(1,20):
+    for degree in range(10,15):
         x, y, pred = polynomial(extractColumnData(data, indep), extractColumnData(data, dep), degree)
     plotData(x, y, pred, ticker, indep, dep)
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
         deleteStock(args.delete)
     if args.prediction:
         print('Select a ticker, along with the independent/dependent variables to be compared')
-        ticker,indep,dep= input("Ticker: "), input("Independent (default -> Date): "), input("Dependent (default -> Close): ")
+        ticker,indep,dep= input("Ticker: "), input("Independent (default -> Date): "), input("Dependent (default -> Open): ")
         generatePrediction(ticker, indep, dep)
     if args.update:
         print('Select start date for ticker history')
