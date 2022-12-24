@@ -2,10 +2,12 @@ import argparse
 import csv
 from datetime import date
 import json
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 from random import shuffle
+import warnings
 import yfinance as yf
 
 def formatDate(year, month, day):
@@ -114,24 +116,34 @@ def plotData(x:list,y:list,pred,ticker:str,indep:str='Date',dep:str='Close'):
     ax.set_xlabel(headers[indep]) and ax.set_ylabel(headers[dep])
     plt.plot(linSpace, pred(linSpace))
     plt.savefig('static/plotFigures/' + ticker + '_' + indep + '_vs_' + dep + '.png')
-    #plt.show() and plt.close()
+    plt.show() and plt.close()
 
 def polynomial(x:list,y:list,degree:int):
+    warnings.simplefilter('ignore', np.RankWarning)
     return x, y, np.poly1d(np.polyfit(x, y, degree))
 
 def generatePrediction(ticker:str, indep:str='Date', dep:str='Open'):
     header, data = extractTickerData(ticker)
-    for degree in range(10,15):
+    for degree in range(1,20):
         x, y, pred = polynomial(extractColumnData(data, indep), extractColumnData(data, dep), degree)
-    plotData(x, y, pred, ticker, indep, dep)
+        err = rmse(x, y, pred)
+        if degree==1: 
+            leastErr, bestPred = err, pred
+        else: 
+            if err<leastErr: leastErr, bestPred = err, pred
+    if args.plot:
+        plotData(x, y, bestPred, ticker, indep, dep)
 
-#write function to calculate error using RMSE, etc....
+def rmse(x:list,y:list,pred):
+    y_pred = pred(x)
+    return math.sqrt(np.square(np.subtract(y,y_pred)).mean())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Stock Processing Pipeline')
     parser.add_argument('-a', '--add', help='stock symbol to add', type=str)
     parser.add_argument('-d', '--delete', help='stock symbol to delete', type=str)
-    parser.add_argument('-p', '--prediction', help='compares varibles to create a best-fit polynomial', type=bool)
+    parser.add_argument('-pl', '--plot', help='plots the best fit function', type=bool)
+    parser.add_argument('-pr', '--prediction', help='compares varibles to create a best-fit polynomial', type=bool)
     parser.add_argument('-q', '--quantity', help='quantity of stocks to add/remove', type=int, default=1)
     parser.add_argument('-u', '--update', help='update all of the stocks', type=bool)
     args = parser.parse_args()
