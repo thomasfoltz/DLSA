@@ -13,3 +13,7 @@
 (Work in progress)
 ### Running Prediction
 (Work in progress)
+
+## References
+### [Stock Price Prediction Based on Deep Learning](https://towardsdatascience.com/stock-price-prediction-based-on-deep-learning-3842ef697da0)
+### [Yahoo Finance](https://finance.yahoo.com/?guccounter=1)
