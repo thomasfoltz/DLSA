@@ -17,7 +17,7 @@ def formatDate(year, month, day):
         day = "0"+str(day)
     return "-".join([str(year), str(month), str(day)])
 
-def legitDate(date):
+def legitDate(date:str):
     if len(date)!=10 or date[4]!='-' or date[7]!='-':
         return False
     if not date[0:3].isdigit() or not date[5:6].isdigit() or not date[8:9].isdigit():
@@ -42,7 +42,6 @@ def updateTickers(startDate:str):
             tickers.append(item['name'])
     if legitDate(startDate):
         for ticker in tickers:
-            
             pullTickerData(ticker, startDate, currDate)
     else:
         print('Invalid start date')
