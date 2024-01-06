@@ -24,6 +24,11 @@
             "name": "MSFT",
             "quantity": 1,
             "datePurchased": "2022-07-17"
+        },
+        {
+            "name": "NVDA",
+            "quantity": 5,
+            "datePurchased": "2024-01-06"
         }
     ]
 }
